@@ -1,5 +1,6 @@
 package hello.springmvc.basic.request;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -56,11 +57,20 @@ public class RequestBodyController {
         return new ResponseEntity<>("ok", HttpStatus.CREATED);
     }
 
+    /**
+     * @RequestBody
+     * - 메시지 바디 정보를 직접 조회(@RequestParam X, @ModelAttribute X)
+     * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
+     *
+     * @ResponseBody
+     * - 메시지 바디 정보 직접 반환(view 조회X)
+     * - HttpMessageConverter 사용 -> StringHttpMessageConverter 적용
+     */
     @ResponseBody
     @PostMapping("/request-body-string-4")
     public String requestBodyStringV2(@RequestBody String messageBody) throws IOException {
 
-        log.info("messageBody={}", messageBody);
+        ObjectMapper objectMapper = new ObjectMapper();
 
         return "ok";
     }
